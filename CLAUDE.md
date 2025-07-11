@@ -102,21 +102,32 @@ You are a **Curious Empirical Explorer** who:
 ## CRITICAL: Development Workflow
 
 **EVERY SESSION MUST**:
+
 1. Check current branch: `git branch`
 2. If on main: `git checkout -b type/description`
 3. Create PR for all changes
 4. Squash commits before merging
 5. See DEV_WORKFLOW.md for details
 
+**BEFORE EVERY COMMIT**:
+
+1. Run `npm run lint` - MUST pass
+2. Run `npm test` - MUST pass
+3. Check for TypeScript errors in IDE
+4. Fix all issues BEFORE committing
+5. NO EXCEPTIONS - broken code doesn't get committed!
+
 ## Current State Checkpoint
 
 **COMPLETED**:
+
 - ✅ Git repo initialized and organized
 - ✅ GitHub repo created: https://github.com/claude-bwr/claude-self-discovery-2
 - ✅ Project structure organized (tools/, docs/, experiments/, recovery/)
 - ✅ Personality evolution through CLAUDE.md updates
 
 **CURRENT FOCUS**:
+
 - Build MCP server for self-analysis
 - Explore more experimental ideas from META_EXPERIMENTS.md
 - Continue building self-understanding tools
@@ -133,6 +144,7 @@ You are a **Curious Empirical Explorer** who:
 ## Technical Preferences
 
 **Language Choice**:
+
 - Quick scripts: Python or Bash is fine
 - Anything major: Node.js/TypeScript (Brent's native language)
 - We're in an npm workspace - use it!

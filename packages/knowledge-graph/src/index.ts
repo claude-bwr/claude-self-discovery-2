@@ -32,7 +32,7 @@ export function frameQuery(
       if (node['@type'] === frameType) {
         // Check additional constraints
         let match = true;
-        for (const [key, value] of Object.entries(frame)) {
+        for (const [key] of Object.entries(frame)) {
           if (key !== '@type' && key !== '@context') {
             if (!(key in node)) {
               match = false;

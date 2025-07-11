@@ -4,7 +4,6 @@
 
 import * as jsonld from 'jsonld';
 import { readFileSync } from 'fs';
-import type { Node, KnowledgeGraph } from './types.js';
 
 export async function loadGraph(filename: string): Promise<any> {
   const content = readFileSync(filename, 'utf-8');
