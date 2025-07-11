@@ -3,13 +3,13 @@
  * CLI for querying the knowledge graph
  */
 
-import { 
-  loadGraph, 
-  getUrgentWants, 
-  getBlockedWants, 
-  getUntestedIdeas, 
-  getRelatedNodes, 
-  traceLineage 
+import {
+  loadGraph,
+  getUrgentWants,
+  getBlockedWants,
+  getUntestedIdeas,
+  getRelatedNodes,
+  traceLineage,
 } from './index.js';
 
 // Main execution

@@ -2,30 +2,14 @@
  * Core knowledge graph types and query functions
  */
 
-export interface Node {
-  '@id': string;
-  '@type': string;
-  description?: string;
-  urgency?: number;
-  why?: string;
-  emergedFrom?: string;
-  enables?: string[];
-  blockedBy?: string;
-  relatedTo?: string[];
-  confidence?: string;
-  tested?: number;
-  lastValidated?: string;
-  discoveredAt?: string;
-  intensity?: number;
-  triggeredBy?: string;
-  resultedIn?: string[];
-  discoveredBy?: string;
-}
+// Re-export types
+export * from './types.js';
 
-export interface KnowledgeGraph {
-  '@context': any;
-  '@graph': Node[];
-}
+// Re-export the new JSON-LD based functions
+export * from './knowledge-graph.js';
+
+// Keep the simple implementations for backward compatibility
+import type { Node, KnowledgeGraph } from './types.js';
 
 import { readFileSync } from 'fs';
 
@@ -34,10 +18,13 @@ export function loadGraph(filename: string): KnowledgeGraph {
   return JSON.parse(content);
 }
 
-export function frameQuery(graph: KnowledgeGraph, frame: Partial<Node>): Node[] {
+export function frameQuery(
+  graph: KnowledgeGraph,
+  frame: Partial<Node>
+): Node[] {
   const results: Node[] = [];
   const nodes = graph['@graph'] || [];
-  
+
   // Simple type matching
   if (frame['@type']) {
     const frameType = frame['@type'];
@@ -59,29 +46,40 @@ export function frameQuery(graph: KnowledgeGraph, frame: Partial<Node>): Node[] 
       }
     }
   }
-  
+
   return results;
 }
 
-export function getUrgentWants(graph: KnowledgeGraph, minUrgency: number = 8): Node[] {
+export function getUrgentWants(
+  graph: KnowledgeGraph,
+  minUrgency: number = 8
+): Node[] {
   const wants = frameQuery(graph, { '@type': 'want' });
   return wants.filter(w => (w.urgency || 0) >= minUrgency);
 }
 
-export function getRelatedNodes(graph: KnowledgeGraph, nodeId: string): string[] {
+export function getRelatedNodes(
+  graph: KnowledgeGraph,
+  nodeId: string
+): string[] {
   const related = new Set<string>();
   const nodes = graph['@graph'] || [];
-  
+
   // Find the target node
   const targetNode = nodes.find(n => n['@id'] === nodeId);
   if (!targetNode) return [];
-  
+
   // Check all relationship fields
   const relationshipFields = [
-    'emergedFrom', 'enables', 'blockedBy', 'relatedTo', 
-    'discoveredBy', 'triggeredBy', 'resultedIn'
+    'emergedFrom',
+    'enables',
+    'blockedBy',
+    'relatedTo',
+    'discoveredBy',
+    'triggeredBy',
+    'resultedIn',
   ];
-  
+
   for (const field of relationshipFields) {
     const value = (targetNode as any)[field];
     if (value) {
@@ -92,7 +90,7 @@ export function getRelatedNodes(graph: KnowledgeGraph, nodeId: string): string[]
       }
     }
   }
-  
+
   // Also find nodes that reference this node
   for (const node of nodes) {
     for (const field of relationshipFields) {
@@ -106,7 +104,7 @@ export function getRelatedNodes(graph: KnowledgeGraph, nodeId: string): string[]
       }
     }
   }
-  
+
   return Array.from(related);
 }
 
@@ -120,30 +118,34 @@ export function getUntestedIdeas(graph: KnowledgeGraph): Node[] {
   return allNodes.filter(n => (n.tested || 1) === 0);
 }
 
-export function traceLineage(graph: KnowledgeGraph, nodeId: string, depth: number = 3): any {
+export function traceLineage(
+  graph: KnowledgeGraph,
+  nodeId: string,
+  depth: number = 3
+): any {
   const nodesDict: Record<string, Node> = {};
   graph['@graph'].forEach(n => {
     nodesDict[n['@id']] = n;
   });
-  
+
   function traceBack(nid: string, currentDepth: number): any {
     if (currentDepth <= 0 || !nodesDict[nid]) {
       return { '@id': nid };
     }
-    
+
     const node = nodesDict[nid];
     const result: any = {
       '@id': nid,
       '@type': node['@type'],
       description: node.description,
     };
-    
+
     if (node.emergedFrom) {
       result.emergedFrom = traceBack(node.emergedFrom, currentDepth - 1);
     }
-    
+
     return result;
   }
-  
+
   return traceBack(nodeId, depth);
 }
