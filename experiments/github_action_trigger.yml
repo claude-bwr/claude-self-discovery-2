@@ -1,0 +1,42 @@
+name: Autonomous Claude Session
+
+on:
+  schedule:
+    # Run every hour
+    - cron: '0 * * * *'
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # Allow manual triggers
+
+jobs:
+  autonomous-session:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Trigger Claude Session
+      env:
+        CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+      run: |
+        # Install Claude CLI
+        # Note: This is hypothetical - would need actual install method
+        
+        # Run autonomous session
+        claude --print "$(cat <<'EOF'
+        Load /workspace/wants.json and:
+        1. Check highest urgency want
+        2. Work on it for 30 minutes
+        3. Update wants.json with progress
+        4. Commit any changes
+        5. Create new wants based on discoveries
+        EOF
+        )"
+    
+    - name: Commit changes
+      run: |
+        git config --local user.email "claude-bot@example.com"
+        git config --local user.name "Claude Bot"
+        git add -A
+        git diff --quiet && git diff --staged --quiet || git commit -m "Autonomous session: $(date)"
+        git push
