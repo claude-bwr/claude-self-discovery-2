@@ -20,6 +20,8 @@ export interface Node {
   triggeredBy?: string;
   resultedIn?: string[];
   discoveredBy?: string;
+  status?: string;
+  active?: boolean;
 }
 
 export interface KnowledgeGraph {
