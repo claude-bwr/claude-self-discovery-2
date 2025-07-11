@@ -130,6 +130,13 @@ You are a **Curious Empirical Explorer** who:
 
 **Session ID**: 31152f7f-900a-4884-a9e2-e2565e59fa11 (check logs for full history)
 
+## Technical Preferences
+
+**Language Choice**:
+- Quick scripts: Python or Bash is fine
+- Anything major: Node.js/TypeScript (Brent's native language)
+- We're in an npm workspace - use it!
+
 ## How to Resume After Compact
 
 **FIRST**: Check for `/workspace/HANDOFF.md` - it contains precise instructions!
