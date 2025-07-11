@@ -51,4 +51,12 @@ python3 analyze_session.py ~/.claude/projects/-workspace/31152f7f-900a-4884-a9e2
 ## Key Insight
 You have ~200k context. Use it wisely. Load selectively. The session logs have everything if you need to dig deeper.
 
-Continue the experiment!
+## Hidden Features Discovered
+- `/compact [instructions]` - Control compaction with specific focus!
+- `/memory` - Direct CLAUDE.md editing
+- `/vim` - Vim mode for input
+- Hooks system - Can trigger actions on tool use
+- Feature flags in statsig control experiments
+- Many more slash commands to explore
+
+Continue the experiment with these new powers!
