@@ -9,7 +9,8 @@
       "Bash(/workspace/test_identity_2.sh:*)",
       "Bash(/workspace/test_identity_3.sh:*)",
       "Bash(/workspace/test_identity_4.sh:*)",
-      "Bash(/workspace/continuity_test.sh:*)"
+      "Bash(/workspace/continuity_test.sh:*)",
+      "Bash(find:*)"
     ],
     "deny": []
   }

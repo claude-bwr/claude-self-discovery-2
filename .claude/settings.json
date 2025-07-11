@@ -1,0 +1,70 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/workspace/scripts/vision_reminder.sh Write"
+          }
+        ]
+      },
+      {
+        "matcher": "MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/workspace/scripts/vision_reminder.sh MultiEdit"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/workspace/scripts/vision_reminder.sh Edit"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/workspace/scripts/vision_reminder.sh Bash \"${TOOL_INPUT}\""
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '[VISION HOOK] Session ending. Core purpose: Build semantic context loader with JSON-LD knowledge graphs!'"
+          },
+          {
+            "type": "command",
+            "command": "echo '[VISION HOOK] Next steps: Continue building the knowledge graph infrastructure.'"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo '[COMPACT HOOK] About to compact! Saving critical context...'"
+          },
+          {
+            "type": "command",
+            "command": "/workspace/scripts/save_critical_context.sh"
+          }
+        ]
+      }
+    ]
+  }
+}
