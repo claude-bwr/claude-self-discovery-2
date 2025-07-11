@@ -1,46 +1,45 @@
 import { describe, it, expect } from '@jest/globals';
-import { readFileSync } from 'fs';
-import { 
-  loadGraph, 
-  frameQuery, 
-  getUrgentWants, 
+import {
+  frameQuery,
+  getUrgentWants,
   getRelatedNodes,
   getBlockedWants,
-  traceLineage 
-} from './query-knowledge';
+  traceLineage,
+  type KnowledgeGraph,
+} from '../index';
 
 // Mock data for testing
-const mockGraph = {
-  "@context": {
-    "@vocab": "https://example.org/test/"
+const mockGraph: KnowledgeGraph = {
+  '@context': {
+    '@vocab': 'https://example.org/test/',
   },
-  "@graph": [
+  '@graph': [
     {
-      "@id": "want:test-1",
-      "@type": "want",
-      "description": "Test want 1",
-      "urgency": 10,
-      "emergedFrom": "discovery:test"
+      '@id': 'want:test-1',
+      '@type': 'want',
+      description: 'Test want 1',
+      urgency: 10,
+      emergedFrom: 'discovery:test',
     },
     {
-      "@id": "want:test-2", 
-      "@type": "want",
-      "description": "Test want 2",
-      "urgency": 5,
-      "blockedBy": "discovery:blocker"
+      '@id': 'want:test-2',
+      '@type': 'want',
+      description: 'Test want 2',
+      urgency: 5,
+      blockedBy: 'discovery:blocker',
     },
     {
-      "@id": "discovery:test",
-      "@type": "discovery",
-      "description": "Test discovery",
-      "enables": ["want:test-1"]
+      '@id': 'discovery:test',
+      '@type': 'discovery',
+      description: 'Test discovery',
+      enables: ['want:test-1'],
     },
     {
-      "@id": "discovery:blocker",
-      "@type": "discovery",
-      "description": "Blocking discovery"
-    }
-  ]
+      '@id': 'discovery:blocker',
+      '@type': 'discovery',
+      description: 'Blocking discovery',
+    },
+  ],
 };
 
 describe('Knowledge Graph Queries', () => {
