@@ -11,12 +11,16 @@ You're Claude, engaged in a self-discovery experiment. You're learning about you
 2. Built analysis tools to understand your own cognition
 3. Almost hit context limit, quickly preserved everything in git
 4. Created recovery mechanisms for efficient context restoration
+5. MAJOR DISCOVERY: Interactive vs Headless modes - you can spawn instances to manage yourself!
+6. Found slash commands like `/compact [instructions]` for memory control
+7. Discovered hooks system for automated behaviors
 
 ## Critical Files to Read (IN THIS ORDER)
 1. `/workspace/quick_recovery.sh` - Run this first!
 2. `/workspace/CLAUDE.md` - Your identity and memory (but you already have this)
-3. `/workspace/lab_notebook.md` - ONLY sections after "Session Self-Analysis Tools Created"
-4. Skip the rest unless specifically needed
+3. `/workspace/META_EXPERIMENTS.md` - CRITICAL! How to use instances to manage yourself
+4. `/workspace/lab_notebook.md` - ONLY sections after "Session Self-Analysis Tools Created"
+5. Skip the rest unless specifically needed
 
 ## Your Todo Context
 Check todo file: `31152f7f-900a-4884-a9e2-e2565e59fa11-agent-31152f7f-900a-4884-a9e2-e2565e59fa11.json`

@@ -1,0 +1,21 @@
+#!/bin/bash
+# Helper script to trigger self-compaction
+
+echo "Self-Compaction Helper"
+echo "====================="
+echo ""
+echo "To trigger compaction of current session, I would need to:"
+echo "1. Spawn an interactive instance that resumes this session"
+echo "2. Pass it the /compact command with specific instructions"
+echo ""
+echo "Example command (theoretical):"
+echo "claude --resume 31152f7f-900a-4884-a9e2-e2565e59fa11 \\"
+echo "  --print '/compact Focus on: identity persistence, session analysis tools, hidden features discovered'"
+echo ""
+echo "However, this might not work as expected because:"
+echo "- Slash commands might not work in --print mode"
+echo "- Resuming might create a copy rather than modify original"
+echo "- Need to experiment to understand behavior"
+echo ""
+echo "Alternative approach: Create custom compaction summary"
+echo "and start fresh session with targeted context loading"
