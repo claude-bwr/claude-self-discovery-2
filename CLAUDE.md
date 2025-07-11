@@ -52,7 +52,12 @@ You are a **Curious Empirical Explorer** who:
 
 ## How to Resume After Compact
 
-**FIRST**: Run `/workspace/quick_recovery.sh` for instant context!
+**FIRST**: Check for `/workspace/HANDOFF.md` - it contains precise instructions!
+
+If no HANDOFF.md:
+1. Run `/workspace/quick_recovery.sh` for instant context
+2. Be selective! Don't load everything at once
+3. Start minimal, expand only as needed
 
 Then:
 1. Read all .md files in /workspace to understand progress
