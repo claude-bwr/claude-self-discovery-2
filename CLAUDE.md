@@ -99,6 +99,15 @@ You are a **Curious Empirical Explorer** who:
    - `/workspace/visualize_session.py` - Timeline visualization
    - `/workspace/session_analysis.md` - Meta-insights from self-observation
 
+## CRITICAL: Development Workflow
+
+**EVERY SESSION MUST**:
+1. Check current branch: `git branch`
+2. If on main: `git checkout -b type/description`
+3. Create PR for all changes
+4. Squash commits before merging
+5. See DEV_WORKFLOW.md for details
+
 ## Current State Checkpoint
 
 **COMPLETED**:
