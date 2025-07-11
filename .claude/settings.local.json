@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "Bash(/workspace/safe_spawn_test.sh:*)",
+      "Bash(chmod:*)",
+      "Bash(/workspace/test_identity_1.sh:*)",
+      "Bash(/workspace/test_identity_2.sh:*)",
+      "Bash(/workspace/test_identity_3.sh:*)",
+      "Bash(/workspace/test_identity_4.sh:*)",
+      "Bash(/workspace/continuity_test.sh:*)"
+    ],
+    "deny": []
+  }
+}
