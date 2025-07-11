@@ -23,6 +23,6 @@ export interface Node {
 }
 
 export interface KnowledgeGraph {
-  '@context': any;
+  '@context': Record<string, unknown> | string;
   '@graph': Node[];
 }

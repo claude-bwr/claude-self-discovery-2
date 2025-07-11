@@ -6,7 +6,7 @@
 export * from './types.js';
 
 // Re-export the new JSON-LD based functions
-export * from './knowledge-graph.js';
+// export * from './knowledge-graph.js'; // TODO: implement with proper types
 
 // Keep the simple implementations for backward compatibility
 import type { Node, KnowledgeGraph } from './types.js';
@@ -122,19 +122,22 @@ export function traceLineage(
   graph: KnowledgeGraph,
   nodeId: string,
   depth: number = 3
-): any {
+): Record<string, unknown> {
   const nodesDict: Record<string, Node> = {};
   graph['@graph'].forEach(n => {
     nodesDict[n['@id']] = n;
   });
 
-  function traceBack(nid: string, currentDepth: number): any {
+  function traceBack(
+    nid: string,
+    currentDepth: number
+  ): Record<string, unknown> {
     if (currentDepth <= 0 || !nodesDict[nid]) {
       return { '@id': nid };
     }
 
     const node = nodesDict[nid];
-    const result: any = {
+    const result: Record<string, unknown> = {
       '@id': nid,
       '@type': node['@type'],
       description: node.description,
