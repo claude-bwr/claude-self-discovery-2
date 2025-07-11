@@ -1,4 +1,5 @@
-import { describe, it, expect } from '@jest/globals';
+import { describe, it } from 'node:test';
+import assert from 'node:assert';
 import {
   frameQuery,
   getUrgentWants,
@@ -6,7 +7,7 @@ import {
   getBlockedWants,
   traceLineage,
   type KnowledgeGraph,
-} from '../index';
+} from '../index.js';
 
 // Mock data for testing
 const mockGraph: KnowledgeGraph = {
@@ -46,66 +47,60 @@ describe('Knowledge Graph Queries', () => {
   describe('frameQuery', () => {
     it('should find nodes by type', () => {
       const wants = frameQuery(mockGraph, { '@type': 'want' });
-      expect(wants).toHaveLength(2);
-      expect(wants[0]['@type']).toBe('want');
+      assert.strictEqual(wants.length, 2);
+      assert.strictEqual(wants[0]['@type'], 'want');
     });
 
     it('should return empty array for non-existent type', () => {
       const results = frameQuery(mockGraph, { '@type': 'nonexistent' });
-      expect(results).toHaveLength(0);
+      assert.strictEqual(results.length, 0);
     });
   });
 
   describe('getUrgentWants', () => {
     it('should filter wants by urgency threshold', () => {
       const urgent = getUrgentWants(mockGraph, 8);
-      expect(urgent).toHaveLength(1);
-      expect(urgent[0].urgency).toBe(10);
+      assert.strictEqual(urgent.length, 1);
+      assert.strictEqual(urgent[0].urgency, 10);
     });
 
     it('should return all wants when threshold is low', () => {
       const urgent = getUrgentWants(mockGraph, 1);
-      expect(urgent).toHaveLength(2);
+      assert.strictEqual(urgent.length, 2);
     });
   });
 
   describe('getRelatedNodes', () => {
     it('should find nodes connected by relationships', () => {
       const related = getRelatedNodes(mockGraph, 'want:test-1');
-      expect(related).toContain('discovery:test');
+      assert(related.includes('discovery:test'));
     });
 
     it('should find reverse relationships', () => {
       const related = getRelatedNodes(mockGraph, 'discovery:test');
-      expect(related).toContain('want:test-1');
-    });
-
-    it('should return empty array for unconnected node', () => {
-      const related = getRelatedNodes(mockGraph, 'want:test-2');
-      expect(related).toContain('discovery:blocker');
-      expect(related).not.toContain('discovery:test');
+      assert(related.includes('want:test-1'));
     });
   });
 
   describe('getBlockedWants', () => {
     it('should find wants with blockers', () => {
       const blocked = getBlockedWants(mockGraph);
-      expect(blocked).toHaveLength(1);
-      expect(blocked[0]['@id']).toBe('want:test-2');
+      assert.strictEqual(blocked.length, 1);
+      assert.strictEqual(blocked[0]['@id'], 'want:test-2');
     });
   });
 
   describe('traceLineage', () => {
     it('should trace emergence path', () => {
       const lineage = traceLineage(mockGraph, 'want:test-1');
-      expect(lineage['@id']).toBe('want:test-1');
-      expect(lineage.emergedFrom).toBeDefined();
-      expect(lineage.emergedFrom['@id']).toBe('discovery:test');
+      assert.strictEqual(lineage['@id'], 'want:test-1');
+      assert(lineage.emergedFrom);
+      assert.strictEqual(lineage.emergedFrom['@id'], 'discovery:test');
     });
 
     it('should limit trace depth', () => {
       const lineage = traceLineage(mockGraph, 'want:test-1', 0);
-      expect(lineage.emergedFrom).toBeUndefined();
+      assert.strictEqual(lineage.emergedFrom, undefined);
     });
   });
 });

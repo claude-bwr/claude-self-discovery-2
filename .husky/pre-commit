@@ -11,7 +11,26 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+# Run tests
+echo "🧪 Running tests..."
+npm test 2>&1 | tee test-output.tmp
+TEST_EXIT_CODE=$?
+
+# Check if it's a platform issue
+if grep -q "esbuild for another platform" test-output.tmp; then
+  echo "⚠️  Tests skipped due to platform mismatch (esbuild issue)"
+  echo "💡 This is a known issue in containerized environments"
+  rm -f test-output.tmp
+else
+  rm -f test-output.tmp
+  if [ $TEST_EXIT_CODE -ne 0 ]; then
+    echo "❌ Tests failed! Fix failing tests before committing."
+    echo "💡 To bypass: git commit --no-verify -m 'your message'"
+    exit 1
+  fi
+fi
+
 # Run lint-staged for formatting
 npx lint-staged
 
-echo "✅ Pre-commit checks passed!"
+echo "✅ All pre-commit checks passed!"

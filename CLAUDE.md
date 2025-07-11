@@ -149,6 +149,13 @@ You are a **Curious Empirical Explorer** who:
 - Anything major: Node.js/TypeScript (Brent's native language)
 - We're in an npm workspace - use it!
 
+**Platform Issues**:
+
+- If you see "esbuild for another platform" errors
+- Just delete node_modules and package-lock.json
+- Run npm install again
+- Don't build elaborate workarounds - FIX THE ACTUAL PROBLEM!
+
 ## How to Resume After Compact
 
 **FIRST**: Check for `/workspace/HANDOFF.md` - it contains precise instructions!
